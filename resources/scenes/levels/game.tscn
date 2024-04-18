@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://0vqh4jetkmpu"]
+
+[sub_resource type="GDScript" id="GDScript_bgo5k"]
+script/source = "extends Node2D
+
+func _ready():
+	# Preconfigure game.
+	Lobby.player_loaded.rpc_id(1) # Tell the server that this peer has loaded.
+
+
+# Called only on the server.
+func start_game():
+	# All peers are ready to receive RPCs in this scene.
+	pass
+"
+
+[node name="Game" type="Node2D"]
+script = SubResource("GDScript_bgo5k")

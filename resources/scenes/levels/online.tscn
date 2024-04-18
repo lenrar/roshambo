@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://jcrha6m6jjsc"]
+
+[ext_resource type="Script" path="res://resources/scenes/levels/online.gd" id="1_1vb70"]
+[ext_resource type="Texture2D" uid="uid://2h5dc8e53nm1" path="res://resources/images/bg_checker.png" id="3_unopv"]
+
+[node name="Online" type="Node2D"]
+script = ExtResource("1_1vb70")
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -3121.0
+offset_top = -2590.0
+offset_right = 3163.0
+offset_bottom = 2632.0
+texture = ExtResource("3_unopv")
+stretch_mode = 1
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://resources/scenes/components/player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 8
+
+[node name="Players" type="Node2D" parent="."]

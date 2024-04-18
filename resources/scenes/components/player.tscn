@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://dwld2vfsnqfls"]
+
+[ext_resource type="Script" path="res://resources/scenes/components/player.gd" id="1_3c7yd"]
+[ext_resource type="Script" path="res://resources/scenes/components/health_component.gd" id="2_4fi7k"]
+[ext_resource type="Texture2D" uid="uid://b6dyocwb5j0dv" path="res://resources/images/paper.png" id="2_hdnek"]
+[ext_resource type="Script" path="res://resources/scenes/components/player_input.gd" id="4_1twuh"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_56cd3"]
+properties/0/path = NodePath(".:player")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/sync = true
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/sync = true
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8rtau"]
+properties/0/path = NodePath(".:target")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:state")
+properties/1/spawn = true
+properties/1/sync = true
+
+[sub_resource type="GDScript" id="GDScript_qqekx"]
+script/source = "extends Sprite2D
+
+const ROCK = preload(\"res://resources/images/rock.png\")
+const PAPER = preload(\"res://resources/images/paper.png\")
+const SCISSORS = preload(\"res://resources/images/scissors.png\")
+const SPOCK = preload(\"res://resources/images/spock.png\")
+
+
+func set_state(state):
+	match state:
+		'rock':
+			texture = ROCK
+		'paper':
+			texture = PAPER
+		'scissors':
+			texture = SCISSORS
+		_:
+			texture = SPOCK
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5glt5"]
+radius = 128.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtjsu"]
+size = Vector2(386, 268)
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+motion_mode = 1
+script = ExtResource("1_3c7yd")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_4fi7k")
+
+[node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_56cd3")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_8rtau")
+script = ExtResource("4_1twuh")
+
+[node name="HandSprite" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_hdnek")
+script = SubResource("GDScript_qqekx")
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+position = Vector2(-102, -26)
+shape = SubResource("CircleShape2D_5glt5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.25, 0.25)
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="AttackBox" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(91, -40)
+shape = SubResource("RectangleShape2D_vtjsu")
+debug_color = Color(0.988235, 0, 0.313726, 0.419608)
+
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_component_health_depleted"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]

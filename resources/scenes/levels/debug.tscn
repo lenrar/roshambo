@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6hjxk26ctsum"]
+
+[ext_resource type="Script" path="res://resources/scenes/levels/debug.gd" id="1_02jy3"]
+[ext_resource type="PackedScene" uid="uid://dwld2vfsnqfls" path="res://resources/scenes/components/player.tscn" id="2_85gd3"]
+[ext_resource type="PackedScene" uid="uid://coio4aq4sw2yd" path="res://resources/scenes/components/zoom_camera.tscn" id="3_teglm"]
+[ext_resource type="Texture2D" uid="uid://dtr86tq3gj6n6" path="res://resources/images/bg.png" id="4_bn1y8"]
+
+[node name="Debug" type="Node2D"]
+script = ExtResource("1_02jy3")
+
+[node name="Player" parent="." instance=ExtResource("2_85gd3")]
+position = Vector2(-53, 1)
+
+[node name="ZoomCamera" parent="Player" instance=ExtResource("3_teglm")]
+position = Vector2(53, -1)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_left = -5112.0
+offset_top = -4513.0
+offset_right = 5426.0
+offset_bottom = 5460.0
+texture = ExtResource("4_bn1y8")
+stretch_mode = 1
