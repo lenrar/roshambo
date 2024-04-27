@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://cf3qd1e1vpmw6"]
+
+[ext_resource type="Script" path="res://resources/scenes/menus/options_menu.gd" id="1_fjalp"]
+[ext_resource type="Texture2D" uid="uid://b6dyocwb5j0dv" path="res://resources/images/paper.png" id="2_43yw7"]
+[ext_resource type="Texture2D" uid="uid://rmgxj050mwdt" path="res://resources/images/rock.png" id="3_swm1t"]
+[ext_resource type="Texture2D" uid="uid://frtdi0jgn55d" path="res://resources/images/scissors.png" id="4_hottb"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fjalp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 853.0
+offset_bottom = 617.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 879.0
+offset_bottom = 582.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 179.0
+offset_top = 76.0
+offset_right = 1196.0
+offset_bottom = 658.0
+text = "Welcome to roshambo!
+
+To play, use the following controls
+Click - Move
+1/R - Change to Rock
+2/P - Change to Paper
+3/S - Change to Scissors "
+
+[node name="Paper" type="Sprite2D" parent="RichTextLabel"]
+position = Vector2(198, 126)
+scale = Vector2(0.0419921, 0.0419921)
+texture = ExtResource("2_43yw7")
+
+[node name="Rock" type="Sprite2D" parent="RichTextLabel"]
+position = Vector2(197, 100)
+scale = Vector2(0.0437011, 0.0437011)
+texture = ExtResource("3_swm1t")
+
+[node name="Scissors" type="Sprite2D" parent="RichTextLabel"]
+position = Vector2(197, 149)
+scale = Vector2(0.0375977, 0.0375977)
+texture = ExtResource("4_hottb")
+
+[node name="MainMenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 306.0
+offset_right = 337.0
+offset_bottom = 337.0
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="MainMenuButton" to="." method="_on_main_menu_button_pressed"]

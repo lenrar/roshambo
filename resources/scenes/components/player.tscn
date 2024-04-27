@@ -8,21 +8,21 @@
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_56cd3"]
 properties/0/path = NodePath(".:player")
 properties/0/spawn = true
-properties/0/sync = true
+properties/0/replication_mode = 1
 properties/1/path = NodePath(".:position")
 properties/1/spawn = true
-properties/1/sync = true
+properties/1/replication_mode = 1
 properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
-properties/2/sync = true
+properties/2/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8rtau"]
 properties/0/path = NodePath(".:target")
 properties/0/spawn = true
-properties/0/sync = true
+properties/0/replication_mode = 1
 properties/1/path = NodePath(".:state")
 properties/1/spawn = true
-properties/1/sync = true
+properties/1/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_qqekx"]
 script/source = "extends Sprite2D
